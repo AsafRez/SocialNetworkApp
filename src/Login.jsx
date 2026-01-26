@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import {executeGet} from './DBAPI.js';
 import Cookies from "js-cookie";
 import './App.css'
-import {BrowserRouter, useNavigate} from "react-router-dom";
-import App from "./App.jsx";
+import { useNavigate} from "react-router-dom";
 
 function Login(){
     const [username, setUsername] = useState("");
@@ -35,7 +34,7 @@ function Login(){
                                 setPassword("");
                                 setErrorMessage("Login good");
                                 console.log(Cookies.get("token"));
-                                navigate("/Dashboard", { state: { user: resultLogin.user } });
+                                navigate("/Profile");
                             }
                         }else{
                             setErrorMessage("Wrong Info");
@@ -55,7 +54,7 @@ function Login(){
 
 
     );
-};
+}
 
 export default Login;
 
