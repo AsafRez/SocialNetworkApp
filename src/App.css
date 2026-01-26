@@ -29,7 +29,7 @@
     flex-direction: column;
     gap: 12px;
 }
-.execute-btn button {
+button {
     width: 100%;
     padding: 12px;
     background-color: #5a8dee;
@@ -105,7 +105,7 @@ body, html {
   }
 }
 
-.loginErrorMessage{
+.Error{
     color: red;
 }
 
