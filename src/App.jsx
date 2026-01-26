@@ -4,6 +4,7 @@ import Login from "./Login.jsx";
 import Register from "./Register.jsx";
 import Profile from "./Profile.jsx";
 import './App.css'
+import Dashboard from "./Dashboard.jsx";
 
 function App() {
 
@@ -15,7 +16,7 @@ function App() {
                 <Route path="/" element={<Login />} />
                 <Route path="/Login" element={<Login />} />
                 <Route path="/Register" element={<Register />} />
-                <Route path="/Profile" element={<Profile />} />
+                <Route path="/Dashboard" element={<Dashboard />} />
             </Routes>
         </div>
     );

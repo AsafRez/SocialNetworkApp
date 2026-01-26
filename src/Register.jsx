@@ -32,7 +32,7 @@ const Register=()=>{
                     }
                 />
             </div>
-            <div className="ExacuteButton">
+            <div className="exacute-button">
                 <button disabled={username === null || password === null}
                         onClick={async()=>
                         {

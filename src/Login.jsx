@@ -16,7 +16,7 @@ function Login(){
             <input value={username} placeholder="Username" onChange={e => setUsername(e.target.value)} />
             <input value={password} type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
                 </div>
-            <div className="ExacuteButton">
+            <div className="exacute-button">
             <button disabled={username === null || password === null}
                     onClick={async()=>
                     {
@@ -34,7 +34,7 @@ function Login(){
                                 setPassword("");
                                 setErrorMessage("Login good");
                                 console.log(Cookies.get("token"));
-                                navigate("/Profile");
+                                navigate("/Dashboard");
                             }
                         }else{
                             setErrorMessage("Wrong Info");
