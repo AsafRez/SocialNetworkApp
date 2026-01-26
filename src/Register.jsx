@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { execute } from './DBAPI.js';
+import {executeGet} from './DBAPI.js';
 import Cookies from "js-cookie";
 import './App.css'
 import {useNavigate} from "react-router-dom";
@@ -41,7 +41,7 @@ const Register=()=>{
                             }else if(username.length>3 && password.length >3){
                                 setErrorMessage("");
                                 const registerData = `register?username=${username}&password=${password}&photolink=${imageURL}`;
-                                const resultReg = await execute(registerData);
+                                const resultReg = await executeGet(registerData);
                                 if (!resultReg.success) {
                                     setErrorMessage("Register failed");
                                 } else {

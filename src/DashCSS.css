@@ -1,0 +1,25 @@
+.DashImage {
+    /* מיקום אבסולוטי ביחס לפינה של המסך או המכולה */
+    position: absolute;
+    top: 20px;    /* מרחק מהלמעלה */
+    right: 20px;  /* מרחק מצד ימין */
+
+    /* הקטנת הגודל כפי שביקשת */
+    width: 120px;
+    height: auto;
+
+    /* אופציונלי: הוספת מסגרת או צל כדי שיבלוט */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+
+    /* מוודא שהתמונה תהיה מעל אלמנטים אחרים */
+    z-index: 100;
+}
+.dashboard-container {
+    position: relative;
+    padding: 20px;
+    min-height: 100vh; /* כדי שהקונטיינר יפרוס את כל הדף */
+}
+h1 {
+    margin-right: 100px; /* מפנה מקום לתמונה */
+}

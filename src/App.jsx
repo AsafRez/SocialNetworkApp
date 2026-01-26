@@ -1,13 +1,11 @@
 import React from 'react'
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Login from "./Login.jsx";
 import Register from "./Register.jsx";
 import Dashboard from "./Dashboard.jsx";
 import './App.css'
 
 function App() {
-    // עכשיו זה יעבוד מצוין כי המנוע עוטף את App מבחוץ (ב-main.jsx)
-    const navigate = useNavigate();
 
     return (
         <div className="app-container">

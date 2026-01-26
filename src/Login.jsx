@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { execute } from './DBAPI.js';
+import {executeGet} from './DBAPI.js';
 import Cookies from "js-cookie";
 import './App.css'
 import {BrowserRouter, useNavigate} from "react-router-dom";
@@ -26,7 +26,7 @@ function Login(){
                         }else if(username.length>3 && password.length >3){
                             setErrorMessage("");
                             const loginData = `Login?username=${username}&password=${password}`;
-                            const resultLogin = await execute(loginData);
+                            const resultLogin = await executeGet(loginData);
                             if (!resultLogin.success) {
                                 setErrorMessage("Login failed");
                             } else {
@@ -34,7 +34,8 @@ function Login(){
                                 setUsername("");
                                 setPassword("");
                                 setErrorMessage("Login good");
-                                navigate("/Dashboard");
+                                console.log(Cookies.get("token"));
+                                navigate("/Dashboard", { state: { user: resultLogin.user } });
                             }
                         }else{
                             setErrorMessage("Wrong Info");
@@ -50,7 +51,6 @@ function Login(){
             <div>
             </div>
         </div>
-
 
 
 
