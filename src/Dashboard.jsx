@@ -32,17 +32,29 @@ const Dashboard=()=> {
     },[]);
     return (
         <>
-            <div className="dashboard-container">
+            <div>
                 {currentUser ? (
-                <div>
-                    <Profile
-                        userName={currentUser.userName}
-                        profile_image={currentUser.profile_image}
-                        following={currentUser.followers ? currentUser.followers.length : 0}
-                        followers={currentUser.following ? currentUser.following.length : 0}
-                    />
-                    <User userName={currentUser.userName} profile_image={currentUser.profile_image}  />
-                </div>
+                        <div className="dashboard-container">
+                            <div className="profile-container">
+                                <div>
+                                    <Profile
+                                        userName={currentUser.userName}
+                                        profile_image={currentUser.profile_image}
+                                        following={currentUser.followers ? currentUser.followers.length : 0}
+                                        followers={currentUser.following ? currentUser.following.length : 0}
+                                    />
+                                    <User userName={currentUser.userName} profile_image={currentUser.profile_image}  />
+                                </div>
+                            </div>
+
+                            <div className="post-container">
+                                אזור מרכזי (הפוסטים)
+                            </div>
+
+                            <div className="folowers-container">
+                                אזור העוקבים
+                            </div>
+                        </div>
                 ) : (
                     <p>טוען נתונים...</p>
                 )}

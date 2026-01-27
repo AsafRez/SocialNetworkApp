@@ -16,19 +16,48 @@
     z-index: 100;
 }
 .dashboard-container {
+    flex-: 1;
+    display: flex;
+    flex-direction: row-reverse;
     position: relative;
     padding: 20px;
-    min-height: 100vh; /* כדי שהקונטיינר יפרוס את כל הדף */
+    height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 10px;
+    overflow: hidden;
+
+}
+.profile-container{
+    flex: 1;
+    border-radius: 15px;
+    border: 3px solid lightgray;
+    overflow-y: auto;
+}
+.post-container{
+    flex: 3;
+    border-radius: 15px;
+    border: 3px solid lightgray;
+    overflow-y: auto;
+    align-content: center
+}
+
+.folowers-container{
+    flex: 2;
+    border-radius: 15px;
+    border: 3px solid lightgray;
+    overflow-y: auto;
+    align-content: center;
 }
 h1 {
     margin-right: 100px; /* מפנה מקום לתמונה */
 }
 .single-user {
-    width: 200px;
+    width: 100%;
     display: flex;
-    flex-direction: row; /* כיוון שורה רגיל */
+    flex-direction: row;
     align-items: center;
-    justify-content: space-between; /* גורם להם להיצמד לקצוות אם תרצה מרווח ביניהם */
+    justify-content: space-between;
     gap: 10px;
     font-size: 30px;
     border-radius: 15px;
@@ -44,6 +73,8 @@ h1 {
 .profile-user{
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     gap: 3px;
     font-size: 20px;
     border-radius: 15px;
