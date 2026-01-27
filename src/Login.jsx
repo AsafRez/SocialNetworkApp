@@ -11,6 +11,7 @@ function Login(){
     const navigate = useNavigate();
 
     return (
+        <div className="login-container">
         <div className="login-box">
             <div className="input-group">
             <input value={username} placeholder="Username" onChange={e => setUsername(e.target.value)} />
@@ -50,6 +51,8 @@ function Login(){
             <div>
             </div>
         </div>
+        </div>
+
 
 
 

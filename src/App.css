@@ -3,21 +3,27 @@
     gap: 10px;
     justify-content: center;
 }
-.login-box{
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
 .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #f0f4f8;
+}
+.login-box{
     background: white;
-    padding: 2rem;
+    padding: 2.5rem;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     gap: 20px;
+    width: 100%;
+    max-width: 400px;
     text-align: center;
 }
+
 .mode-switch button:disabled {
     background: #5a8dee;
     color: white;
