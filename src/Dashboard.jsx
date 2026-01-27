@@ -10,6 +10,7 @@ const Dashboard = () => {
     const [currentUser, setcurrentUser] = useState(null);
     const [searchuser, setsearchuser] = useState("");
     const [filtered, setFiltered] = useState([]);
+    const [posts, setPosts] = useState([]);
     const fetchProfile = useCallback(async () => {
             const token = Cookies.get("token");
             if (token) {
@@ -27,6 +28,24 @@ const Dashboard = () => {
             }
         }
     )
+    //צריך לסיים את הפונקציה הזו - היא לא עובדת עדיין מול השרת כמו שצריך
+    // const fetchPosts = useCallback(async () => {
+    //         const token = Cookies.get("token");
+    //         if (token) {
+    //             const url = `Get-posts`;
+    //             console.log(url);
+    //             try {
+    //                 const res = await executePost(url, {});
+    //                 if (res.success) {
+    //                     setPosts(res)
+    //                 }
+    //             } catch (error) {
+    //                 console.error("Error fetching posts:", error);
+    //             }
+    //         }
+    //     }
+    // )
+
     useEffect(() => {
 
         fetchProfile();
@@ -38,7 +57,13 @@ const Dashboard = () => {
                 try {
                     const url = `Search-User?username=${encodeURIComponent(searchuser)}`;
                     const res = await executeGet(url);
-                    setFiltered(Array.isArray(res) ? res : []);
+                    const data = Array.isArray(res) ? res : [];
+
+                    const filteredResults = data.filter(user =>
+                        !currentUser.following.some(followedUser => followedUser.id === user.id)
+                    );
+
+                    setFiltered(filteredResults);
                 } catch (error) {
                     console.error("Search failed", error);
                     setFiltered([]);
@@ -50,7 +75,7 @@ const Dashboard = () => {
         const timer = setTimeout(search, 300);
         return () => clearTimeout(timer);
 
-    }, [searchuser]);
+    }, [searchuser,filtered]);
 
     return (
         <>

@@ -1,13 +1,11 @@
-/* מיכל חיצוני למרכז הפוסט */
 .post-container {
     display: flex;
     justify-content: center;
     padding: 20px;
-    direction: rtl; /* תמיכה בעברית */
+    direction: rtl;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* הכרטיס עצמו */
 .post-card {
     background: #ffffff;
     border-radius: 12px;
@@ -23,10 +21,9 @@
 }
 
 .post-card:hover {
-    transform: translateY(-2px); /* אפקט ריחוף קל */
+    transform: translateY(-2px);
 }
 
-/* חלק עליון - שם ופורמט תאריך */
 .post-header {
     padding: 15px 20px;
     background-color: #f8f9fa;
@@ -47,7 +44,6 @@
     color: #6c757d;
 }
 
-/* גוף הפוסט */
 .post-body {
     padding: 10px 20px;
     border-top: 1px solid #eee;
@@ -57,7 +53,6 @@
     font-size: 1rem;
 }
 
-/* כפתורי פעולה למטה */
 .post-footer {
     padding: 10px 20px;
     background-color: #fafafa;
@@ -66,6 +61,7 @@
     border-top: 1px solid #eee;
     display: flex;
     gap: 10px;
+    border-top: 1px solid #eee;
 }
 
 .post-button {
@@ -81,4 +77,19 @@
 .post-button:hover {
     background-color: #f0f2f5;
     color: #000;
+}
+
+.post-stats {
+    padding: 5px 20px;
+    font-size: 0.9rem;
+    color: #65676b;
+    border-top: 1px solid #eee;
+}
+
+.post-button.active-like {
+    color: #007bff;
+}
+
+.post-button.active-like:hover {
+    background-color: #e7f3ff;
 }

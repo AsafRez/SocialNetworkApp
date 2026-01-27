@@ -1,10 +1,26 @@
 import { useState } from "react";
 import "./Post.css";
+import {executeGet, executePost} from "./DBAPI.js";
 
 const Post = () => {
+    const [postId, setPostId] = useState("1");
     const [postContent, setPostContent] = useState("בלה בלה בלה בלה בלה בלה בלה בלה");
     const [author, setAuthor] = useState("Admin");
     const [date, setDate] = useState("27/01/2026");
+    const [likesign, setLikeSign] = useState(false);
+    const [likes, setLikes] = useState(0);
+
+    //צריך לסיים את הפונקציה הזו - היא לא עובדת עדיין מול השרת כמו שצריך
+    const handleLike = () => {
+        const url = "Like-Post";
+        executePost(url,postId)
+        if (likesign) {
+            setLikes(likes - 1);
+        } else {
+            setLikes(likes + 1);
+        }
+        setLikeSign(!likesign);
+    };
 
     return (
         <div className="post-container">
@@ -16,9 +32,25 @@ const Post = () => {
                 <div className="post-body">
                     <p>{postContent}</p>
                 </div>
+
+                {/* תצוגת מונה הלייקים */}
+                <div className="post-stats">
+                    {likes > 0 && <span>{likes} לייקים</span>}
+                </div>
+
                 <div className="post-footer">
-                    <button className="post-button">לייק</button>
-                    <button className="post-button">תגובה</button>
+                    <button
+                        className={`post-button ${likesign ? "active-like" : ""}`}
+                        onClick={handleLike}
+                    >
+                        {likesign ? "👍 אהבתי" : "לייק"}
+                    </button>
+                    <button
+                        className="post-button"
+                        onClick={() => alert('This option is available to premium users only')}
+                    >
+                        תגובה
+                    </button>
                 </div>
             </div>
         </div>
