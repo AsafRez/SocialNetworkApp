@@ -1,0 +1,84 @@
+/* מיכל חיצוני למרכז הפוסט */
+.post-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    direction: rtl; /* תמיכה בעברית */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* הכרטיס עצמו */
+.post-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    max-height: 300px;
+    overflow: hidden;
+    border: 1px solid #e1e4e8;
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-card:hover {
+    transform: translateY(-2px); /* אפקט ריחוף קל */
+}
+
+/* חלק עליון - שם ופורמט תאריך */
+.post-header {
+    padding: 15px 20px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-author {
+    font-weight: bold;
+    color: #007bff;
+    font-size: 1.1rem;
+}
+
+.post-date {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+/* גוף הפוסט */
+.post-body {
+    padding: 10px 20px;
+    border-top: 1px solid #eee;
+    line-height: 1.6;
+    flex-grow: 1;
+    color: #333;
+    font-size: 1rem;
+}
+
+/* כפתורי פעולה למטה */
+.post-footer {
+    padding: 10px 20px;
+    background-color: #fafafa;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 10px;
+}
+
+.post-button {
+    background: none;
+    border: none;
+    color: #65676b;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.post-button:hover {
+    background-color: #f0f2f5;
+    color: #000;
+}

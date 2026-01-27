@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import {executeGet, executePost} from "./DBAPI.js";
 import Profile from "./Profile.jsx";
 import UserList from "./UserList.jsx";
+import Post from "./Post.jsx";
 
 const Dashboard = () => {
     const [currentUser, setcurrentUser] = useState(null);
@@ -88,7 +89,7 @@ const Dashboard = () => {
                         </div>
 
                         <div className="post-container">
-                            אזור מרכזי (הפוסטים)§
+                            <Post></Post>
                         </div>
 
                         <div className="followers-container">
