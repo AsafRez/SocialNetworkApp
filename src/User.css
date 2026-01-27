@@ -1,0 +1,75 @@
+.single-user-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* שומר על מרחק מקסימלי בין הפרטים לכפתור */
+    padding: 10px 15px;
+    background: #fff;
+    border-radius: 10px; /* הוספת רדיוס לכרטיס עצמו אם הוא בתוך רשימה */
+    margin-bottom: 5px;
+    direction: rtl;
+}
+
+.single-user-card:hover {
+    background-color: #fafafa; /* שינוי רקע קל במעבר עכבר */
+}
+
+/* קבוצת התמונה והשם */
+.user-details {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-grow: 1; /* נותן לשם המשתמש לתפוס את המרחב הפנוי עד הכפתור */
+}
+
+.user-avatar {
+    width: 40px;  /* הקטנה קלה של התמונה */
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-name-text {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.follow-btn {
+    /* המאפיין החשוב ביותר למניעת מתיחה */
+    width: fit-content;
+    flex-shrink: 0; /* מונע מהכפתור להתכווץ או להימתח לפי שאר התוכן */
+
+    /* גודל ופרופורציות */
+    padding: 6px 16px;
+    min-width: 80px;
+    height: 32px;
+
+    /* פונט ועיצוב */
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    display: flex; /* עוזר למרכז את הטקסט בתוך הכפתור */
+    align-items: center;
+    justify-content: center;
+
+    /* צבעים */
+    background-color: #0095f6;
+    color: white;
+}
+
+.follow-btn:hover {
+    background-color: #1877f2;
+}
+
+/* כפתור כשיש כבר עוקב */
+.follow-btn.is-following {
+    background-color: #efefef;
+    color: #262626;
+    min-width: 90px; /* קצת יותר רחב למילה "עוקב" */
+}
+
+.follow-btn.is-following:hover {
+    background-color: #dbdbdb;
+    color: #ed4956; /* אדום עדין כדי לסמן ביטול */
+}

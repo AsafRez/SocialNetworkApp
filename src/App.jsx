@@ -10,8 +10,9 @@ function App() {
 
     return (
         <div className="app-container">
-            <h1>The Social NetWork :D</h1>
-
+            <header className="header-container">
+                <h1 className="header-title">The Social <span>Network :D</span></h1>
+            </header>
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/Login" element={<Login />} />

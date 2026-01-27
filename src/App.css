@@ -135,3 +135,25 @@ body, html {
 .read-the-docs {
     color: #888;
 }
+.header-container {
+    width: 100%;
+    background: #ffffff;
+    padding: 15px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e1e4e8;
+    box-sizing: border-box;
+}
+
+.header-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1c1e21;
+    letter-spacing: -0.5px;
+    margin: 0;
+}
+
+.header-title span {
+    color: #0095f6; /* הצבע הכחול של המותג */
+}

@@ -1,12 +1,34 @@
-#root {
-    width: 100%;
-    height: 100vh;
-    display: block;
-}
+/* הגדרות גלובליות */
 body, html {
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
+    overflow: hidden; /* מניעת גלילה של כל העמוד */
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
+#root {
+    width: 100%;
+    height: 100vh;
+    display: block;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* סרגל גלילה גלובלי (Chrome/Safari) */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #bdc3c7;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
 }

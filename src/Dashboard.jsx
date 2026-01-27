@@ -54,60 +54,82 @@ const Dashboard = () => {
 
     return (
         <>
-            <div>
-                {currentUser ? (
-                    <div className="dashboard-container">
-                        <div className="profile-container">
-                            <div>
-                                <Profile
-                                    userName={currentUser.userName}
-                                    profile_image={currentUser.profile_image}
-                                />
-
-                            </div>
-                            <input
-                                value={searchuser}
-                                onChange={(e) => setsearchuser(e.target.value)}
-                                placeholder="חפש משתמש..."
-                                type={"text"} className="searchUsers"
+        <div className="dashboard-layout">
+            {!currentUser ? (
+                <div className="loading-state">טוען נתונים...</div>
+            ) : (
+                <>
+                    {/* צד ימין: פרופיל וחיפוש */}
+                    <aside className="sidebar-profile">
+                        {/* חלק עליון קבוע - לא זז */}
+                        <div className="profile-fixed-header">
+                            <Profile
+                                userName={currentUser.userName}
+                                profile_image={currentUser.profile_image}
                             />
+                        </div>
 
+                        {/* חלק תחתון גמיש - גולל במידת הצורך */}
+                        <div className="search-and-results">
+                            <div className="search-wrapper">
+                                <input
+                                    value={searchuser}
+                                    onChange={(e) => setsearchuser(e.target.value)}
+                                    placeholder="חפש משתמש..."
+                                    type="text"
+                                    className="search-input"
+                                />
+                            </div>
 
-                            {searchuser.length >= 3 &&
-                                <div>
-                                    <UserList userList={filtered} onAction={fetchProfile} currentUser={currentUser}/>
+                            {searchuser.length >= 3 && (
+                                <div className="results-scroll-area">
+                                    <UserList
+                                        userList={filtered}
+                                        onAction={fetchProfile}
+                                        currentUser={currentUser}
+                                    />
                                 </div>
-                            }
+                            )}
                         </div>
+                    </aside>
+                    {/* מרכז: פיד פוסטים */}
+                    <main className="feed-container">
+                        <Post />
+                        {/* כאן אפשר להוסיף עוד פוסטים בעתיד */}
+                    </main>
 
-                        <div className="post-container">
-                            <Post></Post>
+                    {/* צד שמאל: רשימות עוקבים */}
+                    <aside className="sidebar-lists">
+                        <div className="lists-card">
+                            <section className="list-section">
+                                <h2 className="section-title">Following</h2>
+                                <UserList
+                                    userList={currentUser.following}
+                                    currentUser={currentUser}
+                                    onAction={fetchProfile}
+                                />
+                            </section>
+
+                            <hr className="section-divider" />
+
+                            <section className="list-section">
+                                <h2 className="section-title">Followers</h2>
+                                <UserList
+                                    userList={currentUser.followers}
+                                    currentUser={currentUser}
+                                    onAction={fetchProfile}
+                                />
+                            </section>
                         </div>
-
-                        <div className="followers-container">
-                            <div className="followings-section">
-                                <h1>Your Following List:</h1>
-                                <UserList userList={currentUser.following} currentUser={currentUser}
-                                          onAction={fetchProfile}/>
-
-                            </div>
-                            <div className="follower-section">
-                                <h1>Your Followers List:</h1>
-                                <UserList userList={currentUser.followers} currentUser={currentUser}
-                                          onAction={fetchProfile}/>
-                            </div>
-                        </div>
-                    </div>
-
-                ) : (
-                    <p>טוען נתונים...</p>
-                )
-
-                }
+                    </aside>
+                </>
+            )}
+        </div>
+            <div className="copyright">
+                © 2026 • Asaf Reznik • Dror Bashari • Evyatar Ridi • Segev Biton •
             </div>
-        </>
-
-    )
+    </>
+    );
 
 }
 export default Dashboard;

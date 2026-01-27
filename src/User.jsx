@@ -1,37 +1,38 @@
 import React from 'react';
 import {executePost} from "./DBAPI.js";
-import Dashboard from "./Dashboard.jsx";
+import "./User.css"; // וודא שהקובץ מקושר
 
 const User = ({userName, profile_image, currentUser, onAction}) => {
     const userFollowsCurrentUser = currentUser.following?.some(f => f.userName === userName);
 
+    const handleFollowToggle = () => {
+        const url = `Toggle-Follow?follower=${currentUser.userName}&following=${userName}`;
+        executePost(url, {}).then(result => {
+            if(result.success) {
+                onAction();
+            }
+        });
+    };
+
     return (
-        <div className={"single-user"}>
-            <div>
+        <div className="single-user-card">
+            <div className="user-details">
                 <img
+                    className="user-avatar"
                     src={`http://localhost:8989${profile_image}`}
                     alt={userName}
                 />
+                <span className="user-name-text">{userName}</span>
             </div>
-            <div>
-                <p style={{fontWeight: 'bold', margin: 0}}>
-                    {userName}
-                </p>
-            </div>
-            <div>
-                <button onClick={() => {
-                    const url = `Toggle-Follow?follower=${currentUser.userName}&following=${userName}`;
-                    executePost(url, {}).then(result =>
-                    {if(result.success){
-                        onAction()}}
-                    )
-                }
-                } className={`follow-button ${userFollowsCurrentUser ? "is-following" : ""}`}>
-                    {userFollowsCurrentUser ? ("Unfollow") : "Follow"}
-                </button>
-            </div>
+
+            <button
+                onClick={handleFollowToggle}
+                className={`follow-btn ${userFollowsCurrentUser ? "is-following" : ""}`}
+            >
+                {userFollowsCurrentUser ? "עוקב" : "עקוב"}
+            </button>
         </div>
-    )
+    );
 }
 
 export default User;
