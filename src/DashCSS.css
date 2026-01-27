@@ -14,6 +14,7 @@
 
     /* מוודא שהתמונה תהיה מעל אלמנטים אחרים */
     z-index: 100;
+
 }
 .dashboard-container {
     flex-: 1;
