@@ -1,66 +1,120 @@
 import './DashCSS.css'
 import React, {useEffect, useState} from "react";
 import Cookies from "js-cookie";
-import {executePost} from "./DBAPI.js";
-import User from "./User.jsx";
+import {executeGet, executePost} from "./DBAPI.js";
 import Profile from "./Profile.jsx";
+import UserList from "./UserList.jsx";
 
-const Dashboard=()=> {
-    const [currentUser, setcurrentUser] = useState({});
+const Dashboard = () => {
+    const [currentUser, setcurrentUser] = useState(null);
+    const [searchuser, setsearchuser] = useState("");
+    const [filtered, setFiltered] = useState([]);
+    const [userfollowing, setUserfollowing] = useState([]);
+    const [userfollowers, setUserfollowers] = useState([]);
+    const fetchProfile = async () => {
+        const token = Cookies.get("token");
+        if (token) {
+            const url = `Get-User-Profile`;
+            console.log(url);
+            try {
+                const res = await executePost(url, {});
+
+                console.log("Response from server:", res);
+                if (res.success)
+                    console.log("Response from server:", res);
+                {
+                    console.log("Successfully RElogged in");
+                    setcurrentUser(res.user)
+                    setUserfollowers(res.user.followers)
+                    setUserfollowing(res.user.following)
+                }
+            } catch (error) {
+                console.error("Error fetching profile:", error);
+            }
+        }
+    }
+    useEffect(() => {
+
+        fetchProfile();
+    }, []);
 
     useEffect(() => {
-        const fetchProfile = async () => {
-            const token = Cookies.get("token");
-            if (token) {
-                const url = `Get-User-Profile`;
-                console.log(url);
+        const search = async () => {
+            if (searchuser.length >= 2) {
                 try {
-                    const res = await executePost(url,{});
-
-                    console.log("Response from server:", res);
-                    if (res.success) {
-                        console.log("Successfully RElogged in");
-                        setcurrentUser(res.user); // מעדכנים את ה-State
-                    }
+                    const url = `Search-User?username=${encodeURIComponent(searchuser)}`;
+                    const res = await executeGet(url);
+                    setFiltered(Array.isArray(res) ? res : []);
                 } catch (error) {
-                    console.error("Error fetching profile:", error);
+                    console.error("Search failed", error);
+                    setFiltered([]);
                 }
+            } else {
+                setFiltered([]);
             }
         };
-        fetchProfile();
+        const timer = setTimeout(search, 300);
+        return () => clearTimeout(timer);
 
-    },[]);
+    }, [searchuser]);
+
     return (
         <>
             <div>
                 {currentUser ? (
-                        <div className="dashboard-container">
-                            <div className="profile-container">
-                                <div>
-                                    <Profile
-                                        userName={currentUser.userName}
-                                        profile_image={currentUser.profile_image}
-                                        following={currentUser.followers ? currentUser.followers.length : 0}
-                                        followers={currentUser.following ? currentUser.following.length : 0}
-                                    />
-                                    <User userName={currentUser.userName} profile_image={currentUser.profile_image}  />
-                                </div>
+                    <div className="dashboard-container">
+                        <div className="profile-container">
+                            <div>
+                                <Profile
+                                    userName={currentUser.userName}
+                                    profile_image={currentUser.profile_image}
+                                />
+
                             </div>
+                            <input
+                                value={searchuser}
+                                onChange={(e) => setsearchuser(e.target.value)}
+                                placeholder="חפש משתמש..."
+                                type={"text"} className="searchUsers"
+                            />
+
+
+
+                            {searchuser.length>=3 &&
+                                <div>
+                                <UserList userList={filtered} onAction={fetchProfile} currentUser={currentUser}/>
+                                </div>
+                            }
+                        </div>
 
                             <div className="post-container">
                                 אזור מרכזי (הפוסטים)
                             </div>
 
-                            <div className="folowers-container">
-                                אזור העוקבים
+                        <div className="followers-container">
+                            <div className="followings-section">
+                                <h1>Your Following List:</h1>
+                                <UserList userList={userfollowing} currentUser={currentUser}
+                                          onAction={fetchProfile}/>
+
+                            </div>
+                            <div className="follower-section">
+                                <h1>Your Followers List:</h1>
+                                <UserList userList={userfollowers} currentUser={currentUser}
+                                          onAction={fetchProfile}/>
                             </div>
                         </div>
+                    </div>
+
                 ) : (
                     <p>טוען נתונים...</p>
-                )}
+                )
+
+                };
             </div>
         </>
-    );
-};
-export default Dashboard;
 
+    )
+
+}
+export default Dashboard;

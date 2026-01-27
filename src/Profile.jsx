@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Profile=({ userName, profile_image, followers, following })=> {
+const Profile=({ userName, profile_image})=> {
     return(
         <div className={"profile-user"}>
             <div>
@@ -17,8 +17,16 @@ const Profile=({ userName, profile_image, followers, following })=> {
                     {userName}
                 </p>
             </div>
-            <p>Followers: {followers}</p>
-            <p>Following: {following}</p>
+            <button>
+                <div>
+                    {/*<button onClick={() =>openModal('edit picture')}>עריכת תמונה</button>*/}
+                    {/*<button onClick={() => openModal('edit password')}>שינוי סיסמא</button>*/}
+                </div>
+
+
+                Edit Picture
+            </button>
+
 
 
         </div>
