@@ -1,5 +1,5 @@
 import './DashCSS.css'
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import {executeGet, executePost} from "./DBAPI.js";
 import Profile from "./Profile.jsx";
@@ -9,30 +9,23 @@ const Dashboard = () => {
     const [currentUser, setcurrentUser] = useState(null);
     const [searchuser, setsearchuser] = useState("");
     const [filtered, setFiltered] = useState([]);
-    const [userfollowing, setUserfollowing] = useState([]);
-    const [userfollowers, setUserfollowers] = useState([]);
-    const fetchProfile = async () => {
-        const token = Cookies.get("token");
-        if (token) {
-            const url = `Get-User-Profile`;
-            console.log(url);
-            try {
-                const res = await executePost(url, {});
-
-                console.log("Response from server:", res);
-                if (res.success)
-                    console.log("Response from server:", res);
-                {
-                    console.log("Successfully RElogged in");
-                    setcurrentUser(res.user)
-                    setUserfollowers(res.user.followers)
-                    setUserfollowing(res.user.following)
+    const fetchProfile = useCallback(async () => {
+            const token = Cookies.get("token");
+            if (token) {
+                const url = `Get-User-Profile`;
+                console.log(url);
+                try {
+                    const res = await executePost(url, {});
+                    if (res.success) {
+                        console.log("Successfully RElogged in");
+                        setcurrentUser(res.user)
+                    }
+                } catch (error) {
+                    console.error("Error fetching profile:", error);
                 }
-            } catch (error) {
-                console.error("Error fetching profile:", error);
             }
         }
-    }
+    )
     useEffect(() => {
 
         fetchProfile();
@@ -79,10 +72,9 @@ const Dashboard = () => {
                             />
 
 
-
-                            {searchuser.length>=3 &&
+                            {searchuser.length >= 3 &&
                                 <div>
-                                <UserList userList={filtered} onAction={fetchProfile} currentUser={currentUser}/>
+                                    <UserList userList={filtered} onAction={fetchProfile} currentUser={currentUser}/>
                                 </div>
                             }
                         </div>
@@ -94,13 +86,13 @@ const Dashboard = () => {
                         <div className="followers-container">
                             <div className="followings-section">
                                 <h1>Your Following List:</h1>
-                                <UserList userList={userfollowing} currentUser={currentUser}
+                                <UserList userList={currentUser.following} currentUser={currentUser}
                                           onAction={fetchProfile}/>
 
                             </div>
                             <div className="follower-section">
                                 <h1>Your Followers List:</h1>
-                                <UserList userList={userfollowers} currentUser={currentUser}
+                                <UserList userList={currentUser.followers} currentUser={currentUser}
                                           onAction={fetchProfile}/>
                             </div>
                         </div>
@@ -110,7 +102,7 @@ const Dashboard = () => {
                     <p>טוען נתונים...</p>
                 )
 
-                };
+                }
             </div>
         </>
 
