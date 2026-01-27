@@ -2,8 +2,10 @@ import React from 'react';
 import {executePost} from "./DBAPI.js";
 import Dashboard from "./Dashboard.jsx";
 
-const User=({ userName, profile_image })=> {
-    return(
+const User = ({userName, profile_image, currentUser, onAction}) => {
+    const userFollowsCurrentUser = currentUser.following?.some(f => f.userName === userName);
+
+    return (
         <div className={"single-user"}>
             <div>
                 <img

@@ -14,6 +14,7 @@ const Register=()=>{
     const navigate = useNavigate();
 
     return (
+        <div className="login-container">
         <div className="login-box">
             <div className="input-group">
                 <input value={username} placeholder="Username" onChange={e => setUsername(e.target.value)} />
@@ -33,7 +34,7 @@ const Register=()=>{
                 />
             </div>
             <div className="exacute-button">
-                <button disabled={username === null || password === null}
+                <button disabled={!username || !password || password !== repassword}// !username = " "...
                         onClick={async()=>
                         {
                             if(username.length===0 || password.length===0){
@@ -63,6 +64,10 @@ const Register=()=>{
                 }>Need to Login?</button>
                 {ErrorMessage && <p>{ErrorMessage}</p>}
             </div>
+            <div className="copyright">
+                © 2026 • Asaf Reznik • Dror Bashari • Evyatar Ridi • Segev Biton •
+            </div>
+        </div>
         </div>
     );
 };

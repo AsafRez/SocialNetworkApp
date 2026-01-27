@@ -48,7 +48,8 @@ function Login(){
             {ErrorMessage && <p className="Error">{ErrorMessage}</p>}
             </div>
 
-            <div>
+            <div className="copyright">
+                © 2026 • Asaf Reznik • Dror Bashari • Evyatar Ridi • Segev Biton •
             </div>
         </div>
         </div>

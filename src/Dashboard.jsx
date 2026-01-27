@@ -87,9 +87,9 @@ const Dashboard = () => {
                             }
                         </div>
 
-                            <div className="post-container">
-                                אזור מרכזי (הפוסטים)
-                            </div>
+                        <div className="post-container">
+                            אזור מרכזי (הפוסטים)§
+                        </div>
 
                         <div className="followers-container">
                             <div className="followings-section">
