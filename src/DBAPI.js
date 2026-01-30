@@ -1,5 +1,5 @@
 import axios from "axios";
-const serverURL = import.meta.env.VITE_API_URL+"/" || 'http://localhost:8989/';
+const serverURL = import.meta.env.VITE_API_URL|| 'http://localhost:8989/';
 export const executeGet = async (url) => {
     const res = await axios.get(serverURL + url,{withCredentials: true});
     return res.data;
