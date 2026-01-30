@@ -30,7 +30,11 @@ function Login(){
                             if (!resultLogin.success) {
                                 setErrorMessage("Login failed");
                             } else {
-                                Cookies.set("token", resultLogin.token, {expires: 1});
+                                Cookies.set("token", resultLogin.token, {
+                                    expires: 1,
+                                    sameSite: 'None',
+                                    secure: true
+                                });
                                 setUsername("");
                                 setPassword("");
                                 setErrorMessage("Login good");
