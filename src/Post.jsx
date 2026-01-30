@@ -11,9 +11,9 @@ const Post = () => {
     const [likes, setLikes] = useState(0);
 
     //צריך לסיים את הפונקציה הזו - היא לא עובדת עדיין מול השרת כמו שצריך
-    const handleLike = () => {
-        const url = "Like-Post";
-        executePost(url,postId)
+    const handleLike = async () => {
+        const url = `Like-Post?postid=${post.id}`;
+        await executePost(url, {});
         if (likesign) {
             setLikes(likes - 1);
         } else {
