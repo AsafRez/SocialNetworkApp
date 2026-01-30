@@ -1,12 +1,22 @@
 import axios from "axios";
 const serverURL = import.meta.env.VITE_API_URL|| 'http://localhost:8989/';
+import axios from "axios";
+const serverURL = import.meta.env.VITE_API_URL || 'http://localhost:8989/';
+
+// פונקציה שמנקה סלאשים כפולים ומחברת נכון
+const getFullURL = (path) => {
+    const base = serverURL.endsWith('/') ? serverURL.slice(0, -1) : serverURL;
+    const cleanPath = path.startsWith('/') ? path : `/${path}`;
+    return `${base}${cleanPath}`;
+};
+
 export const executeGet = async (url) => {
-    const res = await axios.get(serverURL + url,{withCredentials: true});
+    const res = await axios.get(getFullURL(url), { withCredentials: true });
     return res.data;
 };
 
-export const executePost = async (url,data) => {
-    const res = await axios.post(serverURL + url,data,{withCredentials: true});
+export const executePost = async (url, data) => {
+    const res = await axios.post(getFullURL(url), data, { withCredentials: true });
     return res.data;
 };
 const handleFileUpload = async (event) => {
