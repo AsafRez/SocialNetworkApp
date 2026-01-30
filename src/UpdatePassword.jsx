@@ -13,7 +13,7 @@ const UpdatePassword=(currnetusername)=>{
     const [formComplete, setFormComplete] = useState(false);
 
     const navigate = useNavigate();
-    function boolean checkfromcomlete(){
+    function checkfromcomlete(){
         if (curPassword != null || reNewPassword != null || reNewPassword != null) {
             setFormComplete(true);
             return true;
