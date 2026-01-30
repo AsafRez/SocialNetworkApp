@@ -29,7 +29,7 @@ const User = ({userName, profile_image, currentUser, onAction}) => {
                 onClick={handleFollowToggle}
                 className={`follow-btn ${userFollowsCurrentUser ? "is-following" : ""}`}
             >
-                {userFollowsCurrentUser ? "עוקב" : "עקוב"}
+                {userFollowsCurrentUser ? "הסר עוקב" : "עקוב"}
             </button>
         </div>
     );

@@ -8,3 +8,23 @@ export const executePost = async (url,data) => {
     const res = await axios.post(serverURL + url,data,{withCredentials: true});
     return res.data;
 };
+const handleFileUpload = async (event) => {
+    const file = event.target.files[0]; // בחירת הקובץ הראשון
+    const formData = new FormData();
+    formData.append('image', file); // 'image' הוא המפתח שהשרת יחפש
+
+    try {
+        const response = await fetch('http://your-api/upload', {
+            method: 'POST',
+            body: formData, // שליחת ה-FormData (הדפדפן יגדיר אוטומטית את ה-Headers)
+        });
+        const data = await response.json();
+        console.log('Success:', data);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+}

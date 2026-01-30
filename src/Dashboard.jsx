@@ -91,6 +91,7 @@ const Dashboard = () => {
                             <Profile
                                 userName={currentUser.userName}
                                 profile_image={currentUser.profile_image}
+                                onProfileUpdate={fetchProfile}
                             />
                         </div>
 
@@ -158,3 +159,7 @@ const Dashboard = () => {
 
 }
 export default Dashboard;
+
+
+
+
