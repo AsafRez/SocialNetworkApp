@@ -1,6 +1,4 @@
 import axios from "axios";
-const serverURL = import.meta.env.VITE_API_URL|| 'http://localhost:8989/';
-import axios from "axios";
 const serverURL = import.meta.env.VITE_API_URL || 'http://localhost:8989/';
 
 // פונקציה שמנקה סלאשים כפולים ומחברת נכון
