@@ -9,6 +9,8 @@ const getFullURL = (path) => {
 };
 
 export const executeGet = async (url) => {
+    console.log(url);
+    console.log(getFullURL(url));
     const res = await axios.get(getFullURL(url), { withCredentials: true });
     return res.data;
 };
