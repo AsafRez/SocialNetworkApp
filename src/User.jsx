@@ -19,7 +19,7 @@ const User = ({userName, profile_image, currentUser, onAction}) => {
             <div className="user-details">
                 <img
                     className="user-avatar"
-                    src={`http://localhost:8989${profile_image}`}
+                    src={`https://social-server-47hl.onrender.com${profile_image}`}
                     alt={userName}
                 />
                 <span className="user-name-text">{userName}</span>
