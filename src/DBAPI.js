@@ -8,15 +8,24 @@ const getFullURL = (path) => {
     return `${base}${cleanPath}`;
 };
 
+const getAuthConfig = () => {
+    const token = Cookies.get("token"); // שליפת הטוקן מהקוקי ששמרת בלוגין
+    return {
+        withCredentials: true,
+        headers: {
+            'Authorization': token ? token : '' // הוספת הטוקן ל-Header
+        }
+    };
+};
+
 export const executeGet = async (url) => {
-    console.log(url);
-    console.log(getFullURL(url));
-    const res = await axios.get(getFullURL(url), { withCredentials: true });
+    const res = await axios.get(getFullURL(url), getAuthConfig());
     return res.data;
 };
 
 export const executePost = async (url, data) => {
-    const res = await axios.post(getFullURL(url), data, { withCredentials: true });
+    // בבקשת POST, ה-Config (ה-Headers) מגיע כפרמטר השלישי
+    const res = await axios.post(getFullURL(url), data, getAuthConfig());
     return res.data;
 };
 const handleFileUpload = async (event) => {
