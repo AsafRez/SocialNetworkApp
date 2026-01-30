@@ -1,9 +1,40 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './Profile.css';
-import Editprofile from "./Editprofile.jsx";
+import { executePost } from './DBAPI.js';
 
-const Profile = ({ user, profile_image, openModal }) => {
-    const[modal, setModal] = React.useState(false);
+const Profile = ({ userName, profile_image, openModal }) => {
+    const fileInputRef = useRef(null);
+
+    // פתיחת חלון בחירת הקובץ
+    const handleEditClick = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
+
+    // טיפול בבחירת קובץ ושליחה לשרת
+    const handleFileChange = async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append("username", userName);
+        formData.append("photo", file);
+
+        try {
+            const response = await executePost("update-photo", formData);
+            if (response.success) {
+                alert("התמונה עודכנה בהצלחה!");
+                window.location.reload(); // רענון כדי לראות את התמונה החדשה
+            } else {
+                alert("עדכון התמונה נכשל");
+            }
+        } catch (error) {
+            console.error("Error uploading image:", error);
+            alert("שגיאה בתקשורת עם השרת");
+        }
+    };
+
     return (
         <div className="profile-card">
             <h3 className="profile-title">הפרופיל שלי</h3>
@@ -11,36 +42,40 @@ const Profile = ({ user, profile_image, openModal }) => {
             <div className="profile-image-wrapper">
                 <img
                     className="profile-img"
-                    src={`http://localhost:8989${profile_image}`}
-                    alt={user.userName}
+                    src={`http://localhost:8989${profile_image}?t=${new Date().getTime()}`}
+                    alt={userName}
                 />
-                {/* כפתור צף לעריכת תמונה */}
-                {/*<button*/}
-                {/*    className="floating-edit-btn"*/}
-                {/*    onClick={() => alert('edit picture')}*/}
-                {/*    title="ערוך תמונה"*/}
-                {/*>*/}
-                {/*    ✎*/}
-                {/*</button>*/}
+
+                <input
+                    type="file"
+                    ref={fileInputRef}
+                    style={{ display: 'none' }}
+                    accept="image/*"
+                    onChange={handleFileChange}
+                />
+
+                {/* כפתור העריכה הצף */}
+                <button
+                    className="floating-edit-btn"
+                    onClick={handleEditClick}
+                    title="ערוך תמונה"
+                >
+                    ✎
+                </button>
             </div>
 
             <div className="profile-info">
-                <p className="user-name">{user.userName}</p>
+                <p className="user-name">{userName}</p>
             </div>
 
             <div className="profile-actions">
                 <button
                     className="change-password-btn"
-                    onClick={() => setModal(true)}>
-
-                    עריכת פרטים
+                    onClick={() => openModal && openModal('edit password')}
+                >
+                    שינוי סיסמה
                 </button>
             </div>
-            {modal && (
-                <div className="profile-modal">
-                    <Editprofile user={user} />
-                </div>
-            )}
         </div>
     );
 };
