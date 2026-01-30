@@ -45,7 +45,7 @@ const Profile = ({ userName, profile_image, openModal }) => {
             <div className="profile-image-wrapper">
                 <img
                     className="profile-img"
-                    src={`http://localhost:8989${profile_image}?t=${new Date().getTime()}`}
+                    src={`https://social-server-47hl.onrender.com${profile_image}?t=${new Date().getTime()}`}
                     alt={userName}
                 />
 
