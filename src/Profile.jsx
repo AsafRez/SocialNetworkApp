@@ -1,9 +1,12 @@
 import React, { useRef } from 'react';
 import './Profile.css';
 import { executePost } from './DBAPI.js';
+import {useNavigate} from "react-router-dom";
+import updatePassword from "./UpdatePassword.jsx";
 
 const Profile = ({ userName, profile_image, openModal }) => {
     const fileInputRef = useRef(null);
+    const navigate = useNavigate();
 
     // פתיחת חלון בחירת הקובץ
     const handleEditClick = () => {
@@ -71,7 +74,7 @@ const Profile = ({ userName, profile_image, openModal }) => {
             <div className="profile-actions">
                 <button
                     className="change-password-btn"
-                    onClick={() => openModal && openModal('edit password')}
+                    onClick={() => navigate("/UpdatePassword")}
                 >
                     שינוי סיסמה
                 </button>

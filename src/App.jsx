@@ -1,10 +1,12 @@
 import React from 'react'
-import { Routes, Route } from "react-router-dom";
+import {Routes, Route, useNavigate} from "react-router-dom";
 import Login from "./Login.jsx";
 import Register from "./Register.jsx";
 import Profile from "./Profile.jsx";
 import './App.css'
 import Dashboard from "./Dashboard.jsx";
+import UpdatePassword from "./UpdatePassword.jsx";
+
 
 function App() {
 
@@ -18,6 +20,8 @@ function App() {
                 <Route path="/Login" element={<Login />} />
                 <Route path="/Register" element={<Register />} />
                 <Route path="/Dashboard" element={<Dashboard />} />
+                <Route path="/UpdatePassword" element={<UpdatePassword />} />
+
             </Routes>
         </div>
     );
