@@ -8,7 +8,6 @@ const UserList = ({userList, currentUser,onAction}) => {
     }
     return (
         <div className="users-list-wrapper">
-            {console.log(userList)}
             {userList.map((user) => (
                     <div key={user.userName}>
                         <User userName={user.userName}

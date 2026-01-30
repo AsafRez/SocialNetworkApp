@@ -1,7 +1,9 @@
 import React from 'react';
 import './Profile.css';
+import Editprofile from "./Editprofile.jsx";
 
-const Profile = ({ userName, profile_image, openModal }) => {
+const Profile = ({ user, profile_image, openModal }) => {
+    const[modal, setModal] = React.useState(false);
     return (
         <div className="profile-card">
             <h3 className="profile-title">הפרופיל שלי</h3>
@@ -10,30 +12,35 @@ const Profile = ({ userName, profile_image, openModal }) => {
                 <img
                     className="profile-img"
                     src={`http://localhost:8989${profile_image}`}
-                    alt={userName}
+                    alt={user.userName}
                 />
                 {/* כפתור צף לעריכת תמונה */}
-                <button
-                    className="floating-edit-btn"
-                    onClick={() => openModal('edit picture')}
-                    title="ערוך תמונה"
-                >
-                    ✎
-                </button>
+                {/*<button*/}
+                {/*    className="floating-edit-btn"*/}
+                {/*    onClick={() => alert('edit picture')}*/}
+                {/*    title="ערוך תמונה"*/}
+                {/*>*/}
+                {/*    ✎*/}
+                {/*</button>*/}
             </div>
 
             <div className="profile-info">
-                <p className="user-name">{userName}</p>
+                <p className="user-name">{user.userName}</p>
             </div>
 
             <div className="profile-actions">
                 <button
                     className="change-password-btn"
-                    onClick={() => openModal('edit password')}
-                >
-                    שינוי סיסמה
+                    onClick={() => setModal(true)}>
+
+                    עריכת פרטים
                 </button>
             </div>
+            {modal && (
+                <div className="profile-modal">
+                    <Editprofile user={user} />
+                </div>
+            )}
         </div>
     );
 };

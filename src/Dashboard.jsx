@@ -14,7 +14,6 @@ const Dashboard = () => {
             const token = Cookies.get("token");
             if (token) {
                 const url = `Get-User-Profile`;
-                console.log(url);
                 try {
                     const res = await executePost(url, {});
                     if (res.success) {
@@ -64,7 +63,7 @@ const Dashboard = () => {
                         {/* חלק עליון קבוע - לא זז */}
                         <div className="profile-fixed-header">
                             <Profile
-                                userName={currentUser.userName}
+                                user={currentUser}
                                 profile_image={currentUser.profile_image}
                             />
                         </div>
