@@ -59,7 +59,6 @@ const UpdatePassword=(currnetusername)=>{
                                     formData.append("username", username);
                                     formData.append("curpassword", curPassword);
                                     formData.append("newpassword", newPassword);
-                                    formData.append("renewPassword", reNewPassword);
 
                                     const resultReg = await executePost("Change-password", formData);
 
