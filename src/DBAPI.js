@@ -1,5 +1,6 @@
 import axios from "axios";
 const serverURL = import.meta.env.VITE_API_URL || 'http://localhost:8989/';
+import Cookies from 'js-cookie';
 
 // פונקציה שמנקה סלאשים כפולים ומחברת נכון
 const getFullURL = (path) => {
