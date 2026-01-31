@@ -2,16 +2,17 @@ import { useState } from "react";
 import "./Post.css";
 import {executeGet, executePost} from "./DBAPI.js";
 
-const Post = () => {
-    const [postId, setPostId] = useState("1");
-    const [postContent, setPostContent] = useState("בלה בלה בלה בלה בלה בלה בלה בלה");
-    const [author, setAuthor] = useState("Admin");
-    const [date, setDate] = useState("27/01/2026");
+const Post = ({data}) => {
+    const [postId, setPostId] = useState(data.id);
+    const [postContent, setPostContent] = useState(data.content);
+    const [author, setAuthor] = useState(data.authorId);
+    const [date, setDate] = useState(data.postDate);
     const [likesign, setLikeSign] = useState(false);
     const [likes, setLikes] = useState(0);
 
+
     //צריך לסיים את הפונקציה הזו - היא לא עובדת עדיין מול השרת כמו שצריך
-    const handleLike = async (postId) => {
+    const handleLike = async () => {
         const url = `Like-Post?postid=${postId}`;
         await executePost(url, {});
         if (likesign) {
@@ -30,6 +31,7 @@ const Post = () => {
                     <span className="post-date">{date}</span>
                 </div>
                 <div className="post-body">
+                    {console.log(postContent)}
                     <p>{postContent}</p>
                 </div>
 
@@ -41,7 +43,7 @@ const Post = () => {
                 <div className="post-footer">
                     <button
                         className={`post-button ${likesign ? "active-like" : ""}`}
-                        onClick={() => handleLike(post.id)}
+                        onClick={() => handleLike()}
                     >
                         {likesign ? "👍 אהבתי" : "לייק"}
                     </button>

@@ -6,6 +6,7 @@ import Profile from "./Profile.jsx";
 import UserList from "./UserList.jsx";
 import Post from "./Post.jsx";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const Dashboard = () => {
     const [currentUser, setcurrentUser] = useState(null);
@@ -35,6 +36,13 @@ const Dashboard = () => {
         Cookies.remove("token");
         navigate("/Login");
     }
+    const getPosts=()=>{
+        const url="Get-Following-Posts?numberToFetch=20";
+        executeGet(url).then(res=>{
+            setPosts(res.posts);
+            console.log(res.posts);
+        })
+    }
     //צריך לסיים את הפונקציה הזו - היא לא עובדת עדיין מול השרת כמו שצריך
     // const fetchPosts = useCallback(async () => {
     //         const token = Cookies.get("token");
@@ -54,7 +62,7 @@ const Dashboard = () => {
     // )
 
     useEffect(() => {
-
+        getPosts();
         fetchProfile();
     }, []);
 
@@ -117,6 +125,7 @@ const Dashboard = () => {
                                     placeholder="חפש משתמש..."
                                     type="text"
                                     className="search-input"
+
                                 />
                             </div>
 
@@ -133,7 +142,9 @@ const Dashboard = () => {
                     </aside>
                     {/* מרכז: פיד פוסטים */}
                     <main className="feed-container">
-                        <Post />
+                        {posts.map((post,index) => (
+                            <Post data={post} key={index} />
+                        ))}
                         {/* כאן אפשר להוסיף עוד פוסטים בעתיד */}
                     </main>
 
