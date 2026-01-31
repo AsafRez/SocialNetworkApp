@@ -3,6 +3,8 @@ import './Profile.css';
 import { executePost } from './DBAPI.js';
 import {useNavigate} from "react-router-dom";
 import updatePassword from "./UpdatePassword.jsx";
+import Cookies from "js-cookie";
+import Dashboard from "./Dashboard.jsx";
 
 const Profile = ({ userName, profile_image, openModal }) => {
     const fileInputRef = useRef(null);
@@ -78,6 +80,7 @@ const Profile = ({ userName, profile_image, openModal }) => {
                 >
                     שינוי סיסמה
                 </button>
+
             </div>
         </div>
     );

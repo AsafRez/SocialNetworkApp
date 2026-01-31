@@ -38,7 +38,6 @@ function Login(){
                                 setUsername("");
                                 setPassword("");
                                 setErrorMessage("Login good");
-                                console.log(Cookies.get("token"));
                                 navigate("/Dashboard");
                             }
                         }else{

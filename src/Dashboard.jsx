@@ -5,6 +5,7 @@ import {executeGet, executePost} from "./DBAPI.js";
 import Profile from "./Profile.jsx";
 import UserList from "./UserList.jsx";
 import Post from "./Post.jsx";
+import {useNavigate} from "react-router-dom";
 
 const Dashboard = () => {
     const [currentUser, setcurrentUser] = useState(null);
@@ -27,6 +28,13 @@ const Dashboard = () => {
             }
         }
     )
+    const navigate = useNavigate();
+    const LogOut=()=>{
+        setcurrentUser(null);
+        setsearchuser("");
+        Cookies.remove("token");
+        navigate("/Login");
+    }
     //צריך לסיים את הפונקציה הזו - היא לא עובדת עדיין מול השרת כמו שצריך
     // const fetchPosts = useCallback(async () => {
     //         const token = Cookies.get("token");
@@ -83,16 +91,22 @@ const Dashboard = () => {
                 <div className="loading-state">טוען נתונים...</div>
             ) : (
                 <>
+
                     {/* צד ימין: פרופיל וחיפוש */}
                     <aside className="sidebar-profile">
                         {/* חלק עליון קבוע - לא זז */}
+
                         <div className="profile-fixed-header">
+
                             <Profile
                                 user={currentUser}
                                 profile_image={currentUser.profile_image}
                                 onProfileUpdate={fetchProfile}
                             />
+                            <button onClick={()=>LogOut()}>להתנתק</button>
+
                         </div>
+
 
                         {/* חלק תחתון גמיש - גולל במידת הצורך */}
                         <div className="search-and-results">

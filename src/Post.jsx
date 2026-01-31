@@ -11,8 +11,8 @@ const Post = () => {
     const [likes, setLikes] = useState(0);
 
     //צריך לסיים את הפונקציה הזו - היא לא עובדת עדיין מול השרת כמו שצריך
-    const handleLike = async () => {
-        const url = `Like-Post?postid=${post.id}`;
+    const handleLike = async (postId) => {
+        const url = `Like-Post?postid=${postId}`;
         await executePost(url, {});
         if (likesign) {
             setLikes(likes - 1);
@@ -41,7 +41,7 @@ const Post = () => {
                 <div className="post-footer">
                     <button
                         className={`post-button ${likesign ? "active-like" : ""}`}
-                        onClick={handleLike}
+                        onClick={() => handleLike(post.id)}
                     >
                         {likesign ? "👍 אהבתי" : "לייק"}
                     </button>
