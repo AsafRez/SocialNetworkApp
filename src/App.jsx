@@ -1,5 +1,5 @@
 import React from 'react'
-import {Routes, Route, useNavigate} from "react-router-dom";
+import {Routes, Route} from "react-router-dom";
 import Login from "./Login.jsx";
 import Register from "./Register.jsx";
 import Profile from "./Profile.jsx";
@@ -13,7 +13,7 @@ function App() {
     return (
         <div className="app-container">
             <header className="header-container">
-                <h1 className="header-title">The Social <span>Network :D</span></h1>
+                <h1 className="header-title">The Social <span>NetNork :D</span></h1>
             </header>
             <Routes>
                 <Route path="/" element={<Login />} />
