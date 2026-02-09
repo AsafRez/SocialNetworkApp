@@ -14,7 +14,7 @@ const Editprofile=({user})=>{
         const url="Update";
         if (matchingPass) {
             console.log(formData.photolink);
-            const res = await executePost("Update", formData);
+            const res = await executePost(url, formData);
             if(res.success){
                     console.log(res);
                 }

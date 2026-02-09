@@ -43,24 +43,6 @@ const Dashboard = () => {
             console.log(res.posts);
         })
     }
-    //צריך לסיים את הפונקציה הזו - היא לא עובדת עדיין מול השרת כמו שצריך
-    // const fetchPosts = useCallback(async () => {
-    //         const token = Cookies.get("token");
-    //         if (token) {
-    //             const url = `Get-posts`;
-    //             console.log(url);
-    //             try {
-    //                 const res = await executePost(url, {});
-    //                 if (res.success) {
-    //                     setPosts(res)
-    //                 }
-    //             } catch (error) {
-    //                 console.error("Error fetching posts:", error);
-    //             }
-    //         }
-    //     }
-    // )
-
     useEffect(() => {
         getPosts();
         fetchProfile();
