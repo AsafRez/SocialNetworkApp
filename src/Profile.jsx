@@ -1,15 +1,14 @@
-import React, { useRef } from 'react';
+import React, {useRef, useState} from 'react';
 import './Profile.css';
-import { executePost } from './DBAPI.js';
+import { executePost, serverURL } from './DBAPI.js';
 import {useNavigate} from "react-router-dom";
-import updatePassword from "./UpdatePassword.jsx";
-import Cookies from "js-cookie";
-import Dashboard from "./Dashboard.jsx";
+import Editprofile from "./Editprofile.jsx";
+import PostModal from "./PostModal.jsx";
 
-const Profile = ({ userName, profile_image, openModal }) => {
+const Profile = ({ userName, profile_image }) => {
     const fileInputRef = useRef(null);
     const navigate = useNavigate();
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
     // פתיחת חלון בחירת הקובץ
     const handleEditClick = () => {
         if (fileInputRef.current) {
@@ -21,7 +20,7 @@ const Profile = ({ userName, profile_image, openModal }) => {
     const handleFileChange = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
-
+        console.log("Current userName prop:", userName); // בדיקה: האם זה undefined?
         const formData = new FormData();
         formData.append("username", userName);
         formData.append("photo", file);
@@ -47,7 +46,7 @@ const Profile = ({ userName, profile_image, openModal }) => {
             <div className="profile-image-wrapper">
                 <img
                     className="profile-img"
-                    src={`https://social-server-47hl.onrender.com${profile_image}?t=${new Date().getTime()}`}
+                    src={`${serverURL}${profile_image}?t=${new Date().getTime()}`}
                     alt={userName}
                 />
 
@@ -82,7 +81,17 @@ const Profile = ({ userName, profile_image, openModal }) => {
                 </button>
 
             </div>
+            <button className="create-post-btn" onClick={() => setIsModalOpen(true)}>
+                יצירת פוסט
+            </button>
+            <PostModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                userName={userName}
+            />
+
         </div>
+
     );
 };
 

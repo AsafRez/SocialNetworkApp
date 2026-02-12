@@ -1,5 +1,5 @@
 import axios from "axios";
-const serverURL ='http://localhost:8989/';
+export const serverURL ='http://localhost:8989/';
 import Cookies from 'js-cookie';
 
 // פונקציה שמנקה סלאשים כפולים ומחברת נכון

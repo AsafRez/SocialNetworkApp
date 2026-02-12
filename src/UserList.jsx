@@ -2,7 +2,8 @@ import Dashboard from "./Dashboard.jsx";
 import React from "react";
 import User from "./User.jsx";
 
-const UserList = ({userList, currentUser,onAction}) => {
+const UserList = (props) => {
+    const { userList = [], currentUser = {}, onAction = () => {} } = props || {};
     if (!userList || !Array.isArray(userList)) {
         return <p>Loading users...</p>;
     }

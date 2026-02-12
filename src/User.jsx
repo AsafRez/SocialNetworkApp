@@ -1,5 +1,5 @@
 import React from 'react';
-import {executePost} from "./DBAPI.js";
+import {executePost,serverURL} from "./DBAPI.js";
 import "./User.css"; // וודא שהקובץ מקושר
 
 const User = ({userName, profile_image, currentUser, onAction}) => {
@@ -19,7 +19,7 @@ const User = ({userName, profile_image, currentUser, onAction}) => {
             <div className="user-details">
                 <img
                     className="user-avatar"
-                    src={`https://social-server-47hl.onrender.com${profile_image}`}
+                    src={`${serverURL}${profile_image}`}
                     alt={userName}
                 />
                 <span className="user-name-text">{userName}</span>

@@ -6,7 +6,6 @@ import Profile from "./Profile.jsx";
 import UserList from "./UserList.jsx";
 import Post from "./Post.jsx";
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
 
 const Dashboard = () => {
     const [currentUser, setcurrentUser] = useState(null);
@@ -40,39 +39,43 @@ const Dashboard = () => {
         const url="Get-Following-Posts?numberToFetch=20";
         executeGet(url).then(res=>{
             setPosts(res.posts);
-            console.log(res.posts);
         })
     }
-    useEffect(() => {
+    const handleRefreshData = useCallback(async () => {
+        await fetchProfile();
         getPosts();
-        fetchProfile();
+    }, [fetchProfile]);
+    useEffect(() => {
+        handleRefreshData();
     }, []);
-
     useEffect(() => {
         const search = async () => {
-            if (searchuser.length >= 2) {
-                try {
-                    const url = `Search-User?username=${encodeURIComponent(searchuser)}`;
-                    const res = await executeGet(url);
-                    const data = Array.isArray(res) ? res : [];
+            // אם אין טקסט לחיפוש, פשוט מאפסים ויוצאים
+            if (searchuser.length < 2) {
+                setFiltered([]);
+                return;
+            }
 
-                    const filteredResults = data.filter(user =>
-                        !currentUser.following.some(followedUser => followedUser.id === user.id)
-                    );
+            try {
+                const url = `Search-User?username=${encodeURIComponent(searchuser)}`;
+                const res = await executeGet(url);
+                const data = Array.isArray(res) ? res : [];
 
-                    setFiltered(filteredResults);
-                } catch (error) {
-                    console.error("Search failed", error);
-                    setFiltered([]);
-                }
-            } else {
+                // סינון המשתמשים שכבר עוקבים אחריהם
+                const filteredResults = data.filter(user =>
+                    !currentUser.following.some(followedUser => followedUser.userName === user.userName)
+                );
+
+                setFiltered(filteredResults);
+            } catch (error) {
+                console.error("Search failed", error);
                 setFiltered([]);
             }
         };
+
         const timer = setTimeout(search, 300);
         return () => clearTimeout(timer);
-
-    }, [searchuser,filtered]);
+        }, [searchuser, currentUser]);
 
     return (
         <>
@@ -87,9 +90,8 @@ const Dashboard = () => {
                         {/* חלק עליון קבוע - לא זז */}
 
                         <div className="profile-fixed-header">
-
                             <Profile
-                                user={currentUser}
+                                userName={currentUser.userName}
                                 profile_image={currentUser.profile_image}
                                 onProfileUpdate={fetchProfile}
                             />
@@ -111,11 +113,12 @@ const Dashboard = () => {
                                 />
                             </div>
 
+
                             {searchuser.length >= 3 && (
                                 <div className="results-scroll-area">
                                     <UserList
                                         userList={filtered}
-                                        onAction={fetchProfile}
+                                        onAction={handleRefreshData}
                                         currentUser={currentUser}
                                     />
                                 </div>
@@ -128,6 +131,7 @@ const Dashboard = () => {
                             <Post data={post} key={index} />
                         ))}
                         {/* כאן אפשר להוסיף עוד פוסטים בעתיד */}
+
                     </main>
 
                     {/* צד שמאל: רשימות עוקבים */}
@@ -136,9 +140,9 @@ const Dashboard = () => {
                             <section className="list-section">
                                 <h2 className="section-title">Following</h2>
                                 <UserList
-                                    userList={currentUser.following}
+                                    userList={currentUser.following||[]}
                                     currentUser={currentUser}
-                                    onAction={fetchProfile}
+                                    onAction={handleRefreshData}
                                 />
                             </section>
 
@@ -147,15 +151,21 @@ const Dashboard = () => {
                             <section className="list-section">
                                 <h2 className="section-title">Followers</h2>
                                 <UserList
-                                    userList={currentUser.followers}
+                                    userList={currentUser.followers||[]}
                                     currentUser={currentUser}
-                                    onAction={fetchProfile}
+                                    onAction={handleRefreshData}
                                 />
+
                             </section>
+
                         </div>
+
                     </aside>
+
                 </>
+
             )}
+
         </div>
             <div className="copyright">
                 © 2026 • Asaf Reznik • Dror Bashari • Evyatar Ridi • Segev Biton •

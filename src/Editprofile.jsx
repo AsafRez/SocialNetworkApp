@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import { executePost } from "./DBAPI.js";
 
-const Editprofile=({user})=>{
+const Editprofile=()=>{
     const [formData, setFormData] = useState({
-        newUserName: user.userName,
+        newUserName: "username",
         newPassword: "",
         RenewPassword: "",
-        photolink: user.profile_image
+        photolink: ""
     });
     const onSubmit =  async (e) => {
         e.preventDefault();
         const matchingPass=formData.newPassword ===formData.RenewPassword;
         const url="Update";
         if (matchingPass) {
-            console.log(formData.photolink);
             const res = await executePost(url, formData);
             if(res.success){
                     console.log(res);

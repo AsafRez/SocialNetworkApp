@@ -31,7 +31,6 @@ const Post = ({data}) => {
                     <span className="post-date">{date}</span>
                 </div>
                 <div className="post-body">
-                    {console.log(postContent)}
                     <p>{postContent}</p>
                 </div>
 
